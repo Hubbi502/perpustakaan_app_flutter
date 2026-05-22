@@ -1,17 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:library_app/src/pages/login.dart';
+import 'package:library_app/app.dart';
+import 'package:library_app/presentation/admin/providers/user_management_provider.dart';
+import 'package:library_app/presentation/auth/providers/auth_provider.dart';
+import 'package:library_app/presentation/pengunjung/providers/book_provider.dart';
+import 'package:library_app/presentation/pengunjung/providers/loan_provider.dart';
+import 'package:library_app/presentation/petugas/providers/book_management_provider.dart';
+import 'package:library_app/presentation/petugas/providers/category_management_provider.dart';
+import 'package:library_app/presentation/petugas/providers/loan_management_provider.dart';
+import 'package:provider/provider.dart';
 
-void main(){
-  runApp(MyApp());
-}
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  runApp(
+    MultiProvider(
+      providers: [
+        // Auth
+        ChangeNotifierProvider(create: (_) => AuthProvider()),
 
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home:Login(),
-    );
-  }
+        // Pengunjung
+        ChangeNotifierProvider(create: (_) => BookProvider()),
+        ChangeNotifierProvider(create: (_) => LoanProvider()),
+
+        // Petugas
+        ChangeNotifierProvider(create: (_) => BookManagementProvider()),
+        ChangeNotifierProvider(create: (_) => CategoryManagementProvider()),
+        ChangeNotifierProvider(create: (_) => LoanManagementProvider()),
+
+        // Admin
+        ChangeNotifierProvider(create: (_) => UserManagementProvider()),
+      ],
+      child: const App(),
+    ),
+  );
 }
