@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:library_app/app.dart';
 import 'package:library_app/presentation/admin/providers/user_management_provider.dart';
 import 'package:library_app/presentation/auth/providers/auth_provider.dart';
@@ -9,8 +10,9 @@ import 'package:library_app/presentation/petugas/providers/category_management_p
 import 'package:library_app/presentation/petugas/providers/loan_management_provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
 
   runApp(
     MultiProvider(
